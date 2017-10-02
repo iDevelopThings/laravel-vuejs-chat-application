@@ -61,7 +61,7 @@ class ConversationController extends Controller
 			return response()->json(['message' => 'You must enter a message to send.'], 400);
 		}
 
-		$message = $this->conversation->sendMessage($conversation);
+		$message = $this->conversation->sendMessage($conversation, request('message'), request('file'));
 		$message->load('participant.user');
 
 		broadcast(new NewMessage($message, Auth::user()));

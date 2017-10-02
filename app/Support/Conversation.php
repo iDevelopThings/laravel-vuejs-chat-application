@@ -40,6 +40,19 @@ class Conversation
 	}
 
 	/**
+	 * Checks if the user is a participant of the convesation
+	 *
+	 * @param \App\Conversation $conversation
+	 * @param User              $user
+	 *
+	 * @return bool
+	 */
+	public function isParticipant(\App\Conversation $conversation, User $user)
+	{
+		return $conversation->participants()->where('user_id', $user->id)->first() != null;
+	}
+
+	/**
 	 * Create a conversation between two users.
 	 *
 	 * @param User $user1
@@ -71,10 +84,13 @@ class Conversation
 	 *
 	 * @param \App\Conversation $conversation
 	 *
-	 * @return ConversationMessage
+	 * @param                   $text
+	 * @param                   $file
 	 *
+	 * @return ConversationMessage
+	 * @internal param $message
 	 */
-	public function sendMessage(\App\Conversation $conversation)
+	public function sendMessage(\App\Conversation $conversation, $text, $file = null)
 	{
 		$user        = Auth::user();
 		$participant = $conversation->participants()->where('user_id', $user->id)->first();
@@ -82,8 +98,8 @@ class Conversation
 		$message                              = new ConversationMessage;
 		$message->conversation_id             = $conversation->id;
 		$message->conversation_participant_id = $participant->id;
-		$message->text                        = request('message');
-		if (request()->hasFile('file')) {
+		$message->text                        = $text;
+		if ($file != null) {
 			$file     = request()->file('file');
 			$fileName = str_random() . '.' . $file->getClientOriginalExtension();
 
