@@ -1,0 +1,75 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+// Variables
+@import "variables";
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+p {
+  margin: 0;
+}
+
+.message-button {
+  margin-top: 15px;
+}
+
+.conversation-button {
+  margin-top: 30px;
+}
+
+.list-box {
+  > li {
+    border-bottom: 1px solid $panel-default-border;
+  }
+
+  > li:last-child {
+    border: none;
+  }
+}
+
+.chatbox {
+  max-height: 500px;
+  height: 500px;
+  overflow-y: scroll;
+
+  > .messages {
+    > li {
+      &.mine {
+        background-color: darken(#fff, 2%);
+      }
+
+      padding: 15px;
+      width: 100%;
+      border-bottom: 1px solid $panel-default-border;
+
+      > small {
+        color: #c4c3ce;
+        font-size: 10px;
+      }
+    }
+    > li:last-child {
+      border: none;
+    }
+  }
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
